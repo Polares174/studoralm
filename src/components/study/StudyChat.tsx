@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { MessageBubble, type Msg } from "./MessageBubble";
 import { ChatComposer } from "./ChatComposer";
 import type { StudyDoc } from "./DocumentPanel";
-import { GraduationCap, Sparkles } from "lucide-react";
+import { BookOpen, FileText, Lightbulb, Globe, Plus, History, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
@@ -10,7 +10,40 @@ const ANON = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
 const STORAGE_KEY = "estudoslm.messages.v1";
 
-export function StudyChat({ docs }: { docs: StudyDoc[] }) {
+const SUGGESTIONS = [
+  {
+    icon: BookOpen,
+    color: "oklch(0.6 0.22 295)",
+    title: "Explique os principais conceitos de fotossíntese",
+    prompt: "Explique para mim, com profundidade didática, os principais conceitos de fotossíntese.",
+  },
+  {
+    icon: FileText,
+    color: "oklch(0.65 0.2 145)",
+    title: "Resuma os tópicos principais deste PDF",
+    prompt: "Resuma em tópicos claros os principais pontos do material que enviei.",
+  },
+  {
+    icon: Lightbulb,
+    color: "oklch(0.78 0.16 85)",
+    title: "Crie 5 questões sobre este assunto",
+    prompt: "Crie 5 questões variadas (fácil → difícil) sobre o conteúdo, com gabarito comentado.",
+  },
+  {
+    icon: Globe,
+    color: "oklch(0.6 0.22 230)",
+    title: "Quais são os pontos mais importantes?",
+    prompt: "Quais são os pontos mais importantes que eu preciso saber sobre este conteúdo?",
+  },
+];
+
+export function StudyChat({
+  docs,
+  onAttach,
+}: {
+  docs: StudyDoc[];
+  onAttach: () => void;
+}) {
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
     try {
@@ -42,9 +75,8 @@ export function StudyChat({ docs }: { docs: StudyDoc[] }) {
       .join("\n\n");
   }
 
-  async function send() {
-    const text = input.trim();
-    if (!text || loading) return;
+  async function sendText(text: string) {
+    if (!text.trim() || loading) return;
 
     const attachments = docs.map((d) => ({ name: d.name, kind: d.kind }));
     const userMsg: Msg = {
@@ -93,7 +125,7 @@ export function StudyChat({ docs }: { docs: StudyDoc[] }) {
         if (resp.status === 429) toast.error(errBody.error || "Muitas perguntas. Aguarde.");
         else if (resp.status === 402) toast.error(errBody.error || "Créditos esgotados.");
         else toast.error(errBody.error || "Erro ao conversar com a IA.");
-        setMessages((prev) => prev.slice(0, -1)); // remove a user msg
+        setMessages((prev) => prev.slice(0, -1));
         setLoading(false);
         return;
       }
@@ -143,50 +175,61 @@ export function StudyChat({ docs }: { docs: StudyDoc[] }) {
     }
   }
 
+  function send() {
+    sendText(input);
+  }
+
   function stop() {
     abortRef.current?.abort();
     setLoading(false);
   }
 
-  function clearChat() {
-    if (!messages.length) return;
-    if (confirm("Limpar toda a conversa?")) setMessages([]);
+  function newChat() {
+    if (messages.length && !confirm("Iniciar uma nova conversa? A atual será apagada.")) return;
+    setMessages([]);
   }
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex items-center justify-between border-b border-border bg-paper/60 px-4 py-2.5 backdrop-blur sm:px-6">
-        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-          <Sparkles className="h-4 w-4 text-primary" />
-          <span>
-            {docs.length > 0 ? (
-              <>
-                Conversando com <strong className="text-ink">{docs.length}</strong> material
-                {docs.length > 1 ? "is" : ""}
-              </>
-            ) : (
-              "Conversa livre"
-            )}
-          </span>
+      {/* Header */}
+      <div className="flex items-center justify-between border-b border-border px-5 py-3">
+        <div>
+          <h2 className="text-lg font-semibold text-foreground">Chat</h2>
+          <p className="text-xs text-muted-foreground">
+            Pergunte sobre qualquer conteúdo das suas fontes
+          </p>
         </div>
-        <button
-          onClick={clearChat}
-          className="text-xs text-muted-foreground transition hover:text-destructive"
-        >
-          limpar conversa
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={newChat}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-paper/60 px-3 py-1.5 text-xs font-medium text-foreground transition hover:border-primary/40 hover:bg-secondary/60"
+          >
+            <Plus className="h-3.5 w-3.5" />
+            Novo Chat
+          </button>
+          <button
+            className="rounded-lg border border-border bg-paper/60 p-2 text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
+            aria-label="Histórico"
+          >
+            <History className="h-3.5 w-3.5" />
+          </button>
+        </div>
       </div>
 
+      {/* Mensagens */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
         <div className="mx-auto flex max-w-3xl flex-col gap-6">
-          {messages.length === 0 && <EmptyState />}
-          {messages.map((m, i) => (
-            <MessageBubble
-              key={i}
-              msg={m}
-              streaming={loading && i === messages.length - 1 && m.role === "assistant"}
-            />
-          ))}
+          {messages.length === 0 ? (
+            <EmptyState onPick={(p) => sendText(p)} />
+          ) : (
+            messages.map((m, i) => (
+              <MessageBubble
+                key={i}
+                msg={m}
+                streaming={loading && i === messages.length - 1 && m.role === "assistant"}
+              />
+            ))
+          )}
         </div>
       </div>
 
@@ -196,38 +239,45 @@ export function StudyChat({ docs }: { docs: StudyDoc[] }) {
         onSend={send}
         onStop={stop}
         loading={loading}
+        onAttach={onAttach}
       />
     </div>
   );
 }
 
-function EmptyState() {
-  const examples = [
-    "Explique fotossíntese para o ENEM",
-    "Resuma a Revolução Francesa em tópicos",
-    "Crie 5 exercícios de função quadrática",
-    "Corrija minha redação dissertativa",
-  ];
+function EmptyState({ onPick }: { onPick: (prompt: string) => void }) {
   return (
-    <div className="mx-auto mt-8 max-w-xl text-center">
-      <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-[0_3px_0_oklch(0.4_0.12_50)]">
-        <GraduationCap className="h-7 w-7" />
+    <div className="mx-auto mt-6 flex max-w-2xl flex-col items-center text-center">
+      <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent shadow-[0_0_40px_-8px_oklch(0.58_0.24_295/0.7)]">
+        <Sparkles className="h-7 w-7 text-primary-foreground" />
       </div>
-      <h1 className="font-display text-3xl font-semibold tracking-tight text-ink">
-        Bem-vindo ao seu professor particular.
+      <h1 className="text-3xl font-bold tracking-tight text-foreground">
+        Olá, Estudante! <span className="inline-block">👋</span>
       </h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        Envie um material ou comece uma pergunta. Eu explico, resumo, gero exercícios e corrijo —
-        sempre com profundidade didática.
+        Como posso te ajudar nos seus estudos hoje?
       </p>
-      <div className="mt-6 grid gap-2 sm:grid-cols-2">
-        {examples.map((ex) => (
-          <div
-            key={ex}
-            className="rounded-lg border border-dashed border-rule bg-paper/60 px-3 py-2.5 text-left text-xs text-muted-foreground"
+      <p className="mt-1 text-sm text-muted-foreground">
+        Faça uma pergunta sobre suas fontes ou qualquer tópico.
+      </p>
+
+      <div className="mt-8 grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {SUGGESTIONS.map((s) => (
+          <button
+            key={s.title}
+            onClick={() => onPick(s.prompt)}
+            className="group flex flex-col items-start gap-3 rounded-2xl border border-border bg-paper/60 p-4 text-left transition hover:-translate-y-0.5 hover:border-primary/40 hover:bg-paper hover:shadow-[0_12px_32px_-12px_oklch(0.58_0.24_295/0.5)]"
           >
-            <span className="text-primary">›</span> {ex}
-          </div>
+            <div
+              className="flex h-9 w-9 items-center justify-center rounded-lg"
+              style={{
+                backgroundColor: `color-mix(in oklab, ${s.color} 18%, transparent)`,
+              }}
+            >
+              <s.icon className="h-4 w-4" style={{ color: s.color }} />
+            </div>
+            <p className="text-sm font-medium leading-snug text-foreground">{s.title}</p>
+          </button>
         ))}
       </div>
     </div>
