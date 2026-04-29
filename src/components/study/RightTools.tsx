@@ -1,5 +1,4 @@
 import {
-  Inbox,
   FileText,
   Network,
   Layers,
@@ -7,7 +6,6 @@ import {
   ClipboardList,
   Quote,
   Quote as QuoteIcon,
-  Upload,
   Headphones,
 } from "lucide-react";
 import type { StudyDoc } from "./DocumentPanel";
