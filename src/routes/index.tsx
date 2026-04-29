@@ -90,7 +90,12 @@ function Index() {
 
         {/* Área central */}
         <main className="flex flex-1 flex-col overflow-hidden">
-          <StudyChat docs={docs} onAttach={openSources} />
+          <StudyChat
+            docs={docs}
+            onAttach={openSources}
+            pendingPrompt={pendingPrompt}
+            onPendingHandled={() => setPendingPrompt(null)}
+          />
         </main>
 
         {/* Sidebar direita — desktop */}
