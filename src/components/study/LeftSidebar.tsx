@@ -1,12 +1,10 @@
 import { Logo } from "./Logo";
 import {
   MessageSquare,
-  FolderOpen,
   FileText,
   Network,
   PenLine,
   History,
-  Plus,
   Crown,
   ChevronUp,
 } from "lucide-react";
@@ -14,27 +12,18 @@ import { useState } from "react";
 
 const NAV = [
   { key: "chat", label: "Chat", icon: MessageSquare },
-  { key: "fontes", label: "Fontes", icon: FolderOpen },
   { key: "resumos", label: "Resumos", icon: FileText },
   { key: "mapas", label: "Mapas Mentais", icon: Network },
   { key: "exercicios", label: "Exercícios", icon: PenLine },
   { key: "historico", label: "Histórico", icon: History },
 ] as const;
 
-export function LeftSidebar({ onNewSource }: { onNewSource: () => void }) {
+export function LeftSidebar({ onNewSource: _onNewSource }: { onNewSource: () => void }) {
   const [active, setActive] = useState<string>("chat");
 
   return (
     <div className="flex h-full flex-col gap-5 p-4">
       <Logo />
-
-      <button
-        onClick={onNewSource}
-        className="group flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-primary to-[oklch(0.55_0.24_290)] px-4 py-2.5 text-sm font-semibold text-primary-foreground shadow-[0_4px_24px_-6px_oklch(0.58_0.24_295/0.7)] transition hover:brightness-110 hover:shadow-[0_6px_28px_-4px_oklch(0.58_0.24_295/0.85)]"
-      >
-        <Plus className="h-4 w-4 transition group-hover:rotate-90" />
-        Nova Fonte
-      </button>
 
       <nav className="flex flex-1 flex-col gap-0.5">
         {NAV.map(({ key, label, icon: Icon }) => {
