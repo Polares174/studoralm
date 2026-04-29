@@ -32,6 +32,13 @@ const MODES = [
     desc: "Corrige e explica os erros",
     prefix: "Corrija detalhadamente o seguinte e explique os erros:\n\n",
   },
+  {
+    key: "audio",
+    label: "Modo Áudio",
+    desc: "Explicação falada (TTS)",
+    prefix:
+      "MODO ÁUDIO ativado. Responda como um roteiro falado, natural e didático, em parágrafos curtos, sem markdown, sem listas longas, sem emojis, sem LaTeX. Comece com uma saudação amigável ao aluno, explique passo a passo com linguagem simples, dê a intuição, um exemplo fácil e finalize reforçando o aprendizado. Tema: ",
+  },
 ] as const;
 
 export function ChatComposer({
