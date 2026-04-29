@@ -129,7 +129,10 @@ function Index() {
               setMobileRight(false);
               openSources();
             }}
-            onToolClick={() => setMobileRight(false)}
+            onToolClick={(key) => {
+              setMobileRight(false);
+              handleToolClick(key);
+            }}
           />
         </SheetContent>
       </Sheet>
