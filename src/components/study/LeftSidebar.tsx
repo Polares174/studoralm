@@ -18,8 +18,18 @@ const NAV = [
   { key: "historico", label: "Histórico", icon: History },
 ] as const;
 
-export function LeftSidebar({ onNewSource: _onNewSource }: { onNewSource: () => void }) {
+export function LeftSidebar({
+  onNewSource: _onNewSource,
+  userEmail,
+  onLogout,
+}: {
+  onNewSource: () => void;
+  userEmail?: string | null;
+  onLogout?: () => void;
+}) {
   const [active, setActive] = useState<string>("chat");
+  const initial = (userEmail?.[0] ?? "E").toUpperCase();
+  const displayEmail = userEmail ?? "estudante@email.com";
 
   return (
     <div className="flex h-full flex-col gap-5 p-4">
@@ -61,13 +71,17 @@ export function LeftSidebar({ onNewSource: _onNewSource }: { onNewSource: () => 
           </button>
         </div>
 
-        <button className="flex items-center gap-2.5 rounded-xl border border-border bg-paper/60 p-2 text-left transition hover:bg-secondary/60">
+        <button
+          onClick={onLogout}
+          title={onLogout ? "Sair" : undefined}
+          className="flex items-center gap-2.5 rounded-xl border border-border bg-paper/60 p-2 text-left transition hover:bg-secondary/60"
+        >
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-semibold text-primary-foreground">
-            E
+            {initial}
           </div>
           <div className="min-w-0 flex-1">
             <div className="truncate text-xs font-semibold text-foreground">Estudante</div>
-            <div className="truncate text-[10px] text-muted-foreground">estudante@email.com</div>
+            <div className="truncate text-[10px] text-muted-foreground">{displayEmail}</div>
           </div>
           <ChevronUp className="h-3.5 w-3.5 text-muted-foreground" />
         </button>
