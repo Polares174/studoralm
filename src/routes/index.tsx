@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { LeftSidebar } from "@/components/study/LeftSidebar";
 import { RightTools } from "@/components/study/RightTools";
@@ -7,8 +7,11 @@ import { DocumentPanel, type StudyDoc } from "@/components/study/DocumentPanel";
 import { StudyChat } from "@/components/study/StudyChat";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Menu, PanelRight } from "lucide-react";
+import { Menu, PanelRight, LogOut } from "lucide-react";
 import { Logo } from "@/components/study/Logo";
+import { LoginScreen } from "@/components/study/LoginScreen";
+
+const AUTH_KEY = "estudoslm:user-email";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -30,11 +33,41 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [authReady, setAuthReady] = useState(false);
   const [docs, setDocs] = useState<StudyDoc[]>([]);
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [mobileLeft, setMobileLeft] = useState(false);
   const [mobileRight, setMobileRight] = useState(false);
   const [pendingPrompt, setPendingPrompt] = useState<{ text: string; nonce: number } | null>(null);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(AUTH_KEY);
+      if (stored) setUserEmail(stored);
+    } catch {
+      // ignore
+    }
+    setAuthReady(true);
+  }, []);
+
+  function handleLogin(email: string) {
+    try {
+      localStorage.setItem(AUTH_KEY, email);
+    } catch {
+      // ignore
+    }
+    setUserEmail(email);
+  }
+
+  function handleLogout() {
+    try {
+      localStorage.removeItem(AUTH_KEY);
+    } catch {
+      // ignore
+    }
+    setUserEmail(null);
+  }
 
   function openSources() {
     setSourcesOpen(true);
