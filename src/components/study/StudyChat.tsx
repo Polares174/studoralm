@@ -40,9 +40,13 @@ const SUGGESTIONS = [
 export function StudyChat({
   docs,
   onAttach,
+  pendingPrompt,
+  onPendingHandled,
 }: {
   docs: StudyDoc[];
   onAttach: () => void;
+  pendingPrompt?: { text: string; nonce: number } | null;
+  onPendingHandled?: () => void;
 }) {
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
