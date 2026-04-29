@@ -8,6 +8,7 @@ import {
   Quote,
   Quote as QuoteIcon,
   Upload,
+  Headphones,
 } from "lucide-react";
 import type { StudyDoc } from "./DocumentPanel";
 
@@ -18,6 +19,7 @@ const TOOLS = [
   { key: "exercicios", label: "Exercícios", desc: "Crie exercícios", icon: PenLine, color: "oklch(0.7 0.18 75)" },
   { key: "relatorio", label: "Relatório", desc: "Relatório completo", icon: ClipboardList, color: "oklch(0.65 0.2 145)" },
   { key: "citacoes", label: "Citações", desc: "Extrair citações", icon: Quote, color: "oklch(0.6 0.22 295)" },
+  { key: "audio", label: "Áudio", desc: "Explicação falada", icon: Headphones, color: "oklch(0.7 0.2 25)" },
 ] as const;
 
 export function RightTools({
