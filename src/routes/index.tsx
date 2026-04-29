@@ -53,6 +53,25 @@ function Index() {
       "Gere um RELATÓRIO DE ESTUDO completo sobre as minhas fontes contendo: 1) Tema e contexto, 2) Objetivos de aprendizagem, 3) Síntese, 4) Conceitos essenciais, 5) Conexões com outros temas, 6) Possíveis questões de prova, 7) Conclusão. Se não houver fontes, pergunte o tema.",
     citacoes:
       "Extraia as principais CITAÇÕES e trechos relevantes das minhas fontes, organizando por tema. Para cada uma: o trecho exato entre aspas, breve explicação do contexto e por que é importante. Se não houver fontes, avise que precisa de material enviado.",
+    audio:
+      `Você agora está em MODO ÁUDIO. Transforme o conteúdo das minhas fontes (ou, se não houver, pergunte o tema) em uma EXPLICAÇÃO FALADA, natural e envolvente, como um professor explicando em voz alta para um aluno.
+
+REGRAS DE ESCRITA PARA ÁUDIO (TTS):
+- Linguagem simples, conversacional, como fala — não como texto formal.
+- Frases curtas, com pausas naturais (vírgulas e pontos).
+- Sem listas longas, sem tabelas, sem emojis, sem markdown pesado, sem títulos com #.
+- Sem blocos de código, sem LaTeX, sem caracteres especiais difíceis de narrar.
+- Se precisar usar um termo técnico, explique em seguida com palavras simples.
+
+ESTRUTURA OBRIGATÓRIA (em parágrafos curtos, fluindo como fala):
+1) INTRODUÇÃO: comece chamando o aluno de forma amigável (ex: "Beleza, vamos entender isso juntos...").
+2) EXPLICAÇÃO: passo a passo, leve e claro.
+3) INTUIÇÃO: explique o porquê daquilo funcionar.
+4) EXEMPLO: um exemplo simples, fácil de imaginar.
+5) FINALIZAÇÃO: encerre reforçando o aprendizado (ex: "Resumindo, é basicamente isso...").
+
+TOM: amigável, didático, leve, confiante, como um professor que quer ajudar de verdade.
+RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado por uma voz de IA.`,
   };
 
   function handleToolClick(key: string) {
