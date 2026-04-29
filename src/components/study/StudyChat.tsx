@@ -208,7 +208,7 @@ export function StudyChat({
         <div>
           <h2 className="text-lg font-semibold text-foreground">Chat</h2>
           <p className="text-xs text-muted-foreground">
-            Pergunte sobre qualquer conteúdo das suas fontes
+            Pergunte sobre qualquer matéria ou conteúdo de estudo
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -270,7 +270,7 @@ function EmptyState({ onPick }: { onPick: (prompt: string) => void }) {
         Como posso te ajudar nos seus estudos hoje?
       </p>
       <p className="mt-1 text-sm text-muted-foreground">
-        Faça uma pergunta sobre suas fontes ou qualquer tópico.
+        Faça uma pergunta sobre qualquer tópico de estudo.
       </p>
 
       <div className="mt-8 grid w-full gap-3 sm:grid-cols-2 lg:grid-cols-4">

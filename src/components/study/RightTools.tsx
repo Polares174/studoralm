@@ -1,5 +1,4 @@
 import {
-  Inbox,
   FileText,
   Network,
   Layers,
@@ -7,7 +6,6 @@ import {
   ClipboardList,
   Quote,
   Quote as QuoteIcon,
-  Upload,
   Headphones,
 } from "lucide-react";
 import type { StudyDoc } from "./DocumentPanel";
@@ -23,8 +21,8 @@ const TOOLS = [
 ] as const;
 
 export function RightTools({
-  docs,
-  onUploadClick,
+  docs: _docs,
+  onUploadClick: _onUploadClick,
   onToolClick,
 }: {
   docs: StudyDoc[];
@@ -33,29 +31,6 @@ export function RightTools({
 }) {
   return (
     <div className="flex h-full flex-col gap-5 overflow-y-auto p-4">
-      {/* Suas Fontes */}
-      <section>
-        <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-foreground">Suas Fontes</h3>
-          <span className="text-[11px] text-muted-foreground">{docs.length} fontes</span>
-        </div>
-        <div className="rounded-xl border border-border bg-paper/60 p-4 text-center">
-          <div className="mx-auto mb-2.5 flex h-10 w-10 items-center justify-center rounded-full bg-secondary/80">
-            <Inbox className="h-5 w-5 text-muted-foreground" />
-          </div>
-          <p className="text-sm font-medium text-foreground">Adicione suas fontes</p>
-          <p className="mb-3 mt-0.5 text-[11px] text-muted-foreground">
-            PDF, TXT, DOCX, Links e mais
-          </p>
-          <button
-            onClick={onUploadClick}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-primary to-[oklch(0.55_0.24_290)] px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-[0_2px_12px_-2px_oklch(0.58_0.24_295/0.6)] transition hover:brightness-110"
-          >
-            <Upload className="h-3.5 w-3.5" />
-            Selecionar arquivos
-          </button>
-        </div>
-      </section>
 
       {/* Ferramentas */}
       <section>
