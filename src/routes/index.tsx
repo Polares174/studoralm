@@ -103,10 +103,7 @@ function Index() {
           <RightTools
             docs={docs}
             onUploadClick={openSources}
-            onToolClick={(_k, label) => {
-              // futuro: rotear para ferramenta específica
-              console.log("ferramenta:", label);
-            }}
+            onToolClick={(key) => handleToolClick(key)}
           />
         </aside>
       </div>
