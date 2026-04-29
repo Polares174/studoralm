@@ -40,9 +40,13 @@ const SUGGESTIONS = [
 export function StudyChat({
   docs,
   onAttach,
+  pendingPrompt,
+  onPendingHandled,
 }: {
   docs: StudyDoc[];
   onAttach: () => void;
+  pendingPrompt?: { text: string; nonce: number } | null;
+  onPendingHandled?: () => void;
 }) {
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
@@ -67,6 +71,14 @@ export function StudyChat({
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
+
+  useEffect(() => {
+    if (pendingPrompt && pendingPrompt.text) {
+      sendText(pendingPrompt.text);
+      onPendingHandled?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingPrompt?.nonce]);
 
   function buildContext(): string {
     return docs

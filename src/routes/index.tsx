@@ -34,9 +34,31 @@ function Index() {
   const [sourcesOpen, setSourcesOpen] = useState(false);
   const [mobileLeft, setMobileLeft] = useState(false);
   const [mobileRight, setMobileRight] = useState(false);
+  const [pendingPrompt, setPendingPrompt] = useState<{ text: string; nonce: number } | null>(null);
 
   function openSources() {
     setSourcesOpen(true);
+  }
+
+  const TOOL_PROMPTS: Record<string, string> = {
+    resumo:
+      "Crie um RESUMO didático e completo do conteúdo das minhas fontes (ou, se não houver fontes, peça o tema). Estruture em: 1) Visão geral, 2) Conceitos-chave em tópicos, 3) Pontos cobrados em provas, 4) Resumo final em 5 linhas.",
+    mapa:
+      "Crie um MAPA MENTAL em formato de texto hierárquico (com indentação e marcadores) sobre o conteúdo das minhas fontes. Mostre tema central, ramos principais, sub-ramos e exemplos. Se não houver fontes, pergunte qual tema usar.",
+    flashcards:
+      "Gere 10 FLASHCARDS no formato:\\n\\n**Card N**\\n- Pergunta: ...\\n- Resposta: ...\\n\\nUse o conteúdo das minhas fontes. Misture níveis (fácil, médio, difícil). Se não houver fontes, pergunte o tema.",
+    exercicios:
+      "Crie 5 EXERCÍCIOS sobre o conteúdo das minhas fontes (2 fáceis, 2 médios, 1 difícil). Para cada um: enunciado, alternativas quando fizer sentido, gabarito e RESOLUÇÃO COMENTADA passo a passo. Se não houver fontes, pergunte o tema.",
+    relatorio:
+      "Gere um RELATÓRIO DE ESTUDO completo sobre as minhas fontes contendo: 1) Tema e contexto, 2) Objetivos de aprendizagem, 3) Síntese, 4) Conceitos essenciais, 5) Conexões com outros temas, 6) Possíveis questões de prova, 7) Conclusão. Se não houver fontes, pergunte o tema.",
+    citacoes:
+      "Extraia as principais CITAÇÕES e trechos relevantes das minhas fontes, organizando por tema. Para cada uma: o trecho exato entre aspas, breve explicação do contexto e por que é importante. Se não houver fontes, avise que precisa de material enviado.",
+  };
+
+  function handleToolClick(key: string) {
+    const prompt = TOOL_PROMPTS[key];
+    if (!prompt) return;
+    setPendingPrompt({ text: prompt, nonce: Date.now() });
   }
 
   return (
@@ -68,7 +90,12 @@ function Index() {
 
         {/* Área central */}
         <main className="flex flex-1 flex-col overflow-hidden">
-          <StudyChat docs={docs} onAttach={openSources} />
+          <StudyChat
+            docs={docs}
+            onAttach={openSources}
+            pendingPrompt={pendingPrompt}
+            onPendingHandled={() => setPendingPrompt(null)}
+          />
         </main>
 
         {/* Sidebar direita — desktop */}
@@ -76,10 +103,7 @@ function Index() {
           <RightTools
             docs={docs}
             onUploadClick={openSources}
-            onToolClick={(_k, label) => {
-              // futuro: rotear para ferramenta específica
-              console.log("ferramenta:", label);
-            }}
+            onToolClick={(key) => handleToolClick(key)}
           />
         </aside>
       </div>
@@ -105,7 +129,10 @@ function Index() {
               setMobileRight(false);
               openSources();
             }}
-            onToolClick={() => setMobileRight(false)}
+            onToolClick={(key) => {
+              setMobileRight(false);
+              handleToolClick(key);
+            }}
           />
         </SheetContent>
       </Sheet>
