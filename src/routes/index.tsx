@@ -113,6 +113,21 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
     setPendingPrompt({ text: prompt, nonce: Date.now() });
   }
 
+  if (!authReady) {
+    return <div className="h-screen w-full bg-background" />;
+  }
+
+  if (!userEmail) {
+    return (
+      <>
+        <LoginScreen onLogin={handleLogin} />
+        <Toaster position="top-center" theme="dark" richColors />
+      </>
+    );
+  }
+
+  const initial = userEmail[0]?.toUpperCase() ?? "E";
+
   return (
     <div className="flex h-screen w-full flex-col overflow-hidden bg-background text-foreground">
       {/* Topbar mobile */}
@@ -134,10 +149,28 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
         </button>
       </header>
 
+      {/* Topbar desktop com user pill */}
+      <header className="hidden items-center justify-end gap-2 border-b border-border bg-background/60 px-4 py-2 backdrop-blur lg:flex">
+        <div className="flex items-center gap-2 rounded-full border border-border bg-paper/60 py-1 pl-1 pr-3">
+          <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-semibold text-primary-foreground">
+            {initial}
+          </div>
+          <span className="max-w-[220px] truncate text-xs text-foreground">{userEmail}</span>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 rounded-full border border-border bg-paper/60 px-3 py-1.5 text-xs text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
+          aria-label="Sair"
+        >
+          <LogOut className="h-3.5 w-3.5" />
+          Sair
+        </button>
+      </header>
+
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar esquerda — desktop */}
         <aside className="hidden w-64 flex-shrink-0 border-r border-border bg-sidebar lg:block xl:w-72">
-          <LeftSidebar onNewSource={openSources} />
+          <LeftSidebar onNewSource={openSources} userEmail={userEmail} onLogout={handleLogout} />
         </aside>
 
         {/* Área central */}
@@ -167,6 +200,11 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
             onNewSource={() => {
               setMobileLeft(false);
               openSources();
+            }}
+            userEmail={userEmail}
+            onLogout={() => {
+              setMobileLeft(false);
+              handleLogout();
             }}
           />
         </SheetContent>
