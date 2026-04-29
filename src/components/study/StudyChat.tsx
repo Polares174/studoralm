@@ -72,6 +72,14 @@ export function StudyChat({
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, loading]);
 
+  useEffect(() => {
+    if (pendingPrompt && pendingPrompt.text) {
+      sendText(pendingPrompt.text);
+      onPendingHandled?.();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingPrompt?.nonce]);
+
   function buildContext(): string {
     return docs
       .filter((d) => d.text)
