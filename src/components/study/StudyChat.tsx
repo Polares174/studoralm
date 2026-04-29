@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MessageBubble, type Msg } from "./MessageBubble";
+import { MessageBubble, TypingIndicator, type Msg } from "./MessageBubble";
 import { ChatComposer } from "./ChatComposer";
 import type { StudyDoc } from "./DocumentPanel";
 import { BookOpen, FileText, Lightbulb, Globe, Plus, History, Sparkles } from "lucide-react";
@@ -234,13 +234,28 @@ export function StudyChat({
           {messages.length === 0 ? (
             <EmptyState onPick={(p) => sendText(p)} />
           ) : (
-            messages.map((m, i) => (
-              <MessageBubble
-                key={i}
-                msg={m}
-                streaming={loading && i === messages.length - 1 && m.role === "assistant"}
-              />
-            ))
+            <>
+              {messages.map((m, i) => (
+                <MessageBubble
+                  key={i}
+                  msg={m}
+                  streaming={loading && i === messages.length - 1 && m.role === "assistant"}
+                  onAction={(key, source) => {
+                    const prefixes: Record<string, string> = {
+                      explicar:
+                        "Explique melhor, com mais profundidade didática e exemplos, o seguinte conteúdo:\n\n",
+                      exercicios:
+                        "Crie 5 exercícios variados (fácil → difícil) com gabarito e resolução comentada sobre o seguinte conteúdo:\n\n",
+                      resumir:
+                        "Resuma de forma direta e objetiva, em tópicos, o seguinte conteúdo:\n\n",
+                    };
+                    sendText((prefixes[key] || "") + source);
+                  }}
+                />
+              ))}
+              {loading &&
+                messages[messages.length - 1]?.role === "user" && <TypingIndicator />}
+            </>
           )}
         </div>
       </div>
