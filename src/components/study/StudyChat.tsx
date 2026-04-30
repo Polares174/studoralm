@@ -20,8 +20,8 @@ const SUGGESTIONS = [
   {
     icon: FileText,
     color: "oklch(0.65 0.2 145)",
-    title: "Resuma os tópicos principais deste PDF",
-    prompt: "Resuma em tópicos claros os principais pontos do material que enviei.",
+    title: "Monte um plano de estudos para a semana",
+    prompt: "Monte um plano de estudos detalhado para a semana, organizando matérias por dia e horário, com pausas e revisões.",
   },
   {
     icon: Lightbulb,
