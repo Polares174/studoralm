@@ -7,8 +7,10 @@ import {
   History,
   Crown,
   ChevronUp,
+  Info,
 } from "lucide-react";
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 
 const NAV = [
   { key: "chat", label: "Chat", icon: MessageSquare },
