@@ -139,7 +139,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
         >
           <Menu className="h-4 w-4" />
         </button>
-        <Logo />
+        <Logo size="sm" showTagline={false} />
         <button
           onClick={() => setMobileRight(true)}
           className="rounded-lg p-2 text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
@@ -150,12 +150,9 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
       </header>
 
       {/* Topbar desktop com user pill */}
-      <header className="hidden items-center justify-between gap-2 border-b border-border bg-background/60 px-5 py-2.5 backdrop-blur lg:flex">
-        <div className="flex items-center gap-2">
-          <Logo />
-          <span className="ml-2 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            · IA para estudar
-          </span>
+      <header className="hidden items-center justify-between gap-3 border-b border-border bg-background/60 px-5 py-2.5 backdrop-blur lg:flex">
+        <div className="flex min-w-0 items-center">
+          <Logo size="md" />
         </div>
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2 rounded-full border border-border bg-paper/60 py-1 pl-1 pr-3 transition hover:border-primary/40">
