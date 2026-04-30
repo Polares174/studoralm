@@ -17,13 +17,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Estudos LM — IA para estudantes (ENEM, concursos, faculdade)" },
+      { title: "Studora LM — IA para estudantes (ENEM, concursos, faculdade)" },
       {
         name: "description",
         content:
           "Plataforma de estudos com IA: explicações, resumos, mapas mentais, flashcards e exercícios a partir das suas fontes.",
       },
-      { property: "og:title", content: "Estudos LM" },
+      { property: "og:title", content: "Studora LM" },
       {
         property: "og:description",
         content: "Aprenda de verdade com um professor particular de IA.",
@@ -152,8 +152,9 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
       {/* Topbar desktop com user pill */}
       <header className="hidden items-center justify-between gap-2 border-b border-border bg-background/60 px-5 py-2.5 backdrop-blur lg:flex">
         <div className="flex items-center gap-2">
-          <span className="text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-            ESTUDOS <span className="text-primary">LM</span> · IA para estudar
+          <Logo />
+          <span className="ml-2 text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+            · IA para estudar
           </span>
         </div>
         <div className="flex items-center gap-2">

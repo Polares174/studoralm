@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
-import { GraduationCap, Mail, ArrowRight, AlertCircle } from "lucide-react";
+import { Mail, ArrowRight, AlertCircle } from "lucide-react";
+import logoUrl from "@/assets/studora-logo.png";
 
 const ALLOWED_DOMAIN = "@escola.pr.gov.br";
 
@@ -35,12 +36,11 @@ export function LoginScreen({ onLogin }: { onLogin: (email: string) => void }) {
         <div className="rounded-3xl border border-border bg-card/80 p-8 shadow-[0_20px_80px_-20px_oklch(0.58_0.24_295/0.4)] backdrop-blur-xl sm:p-10">
           {/* Logo */}
           <div className="mb-8 flex flex-col items-center text-center">
-            <div className="relative mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-accent shadow-[0_0_40px_-8px_oklch(0.58_0.24_295/0.7)]">
-              <GraduationCap className="h-8 w-8 text-primary-foreground" />
-              <span className="absolute -right-1 -top-1 h-3 w-3 rounded-full bg-accent ring-2 ring-card" />
+            <div className="relative mb-5 h-20 w-20 overflow-hidden rounded-2xl shadow-[0_0_40px_-8px_oklch(0.58_0.24_295/0.7)]">
+              <img src={logoUrl} alt="Studora LM" className="h-full w-full object-cover" />
             </div>
             <h1 className="text-3xl font-bold tracking-tight text-foreground">
-              ESTUDOS{" "}
+              Studora{" "}
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 LM
               </span>
