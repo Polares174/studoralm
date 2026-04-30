@@ -43,7 +43,7 @@ export function MessageBubble({
 
       <div className={`flex max-w-[85%] flex-col gap-1.5 ${isUser ? "items-end" : "items-start"}`}>
         <span className="px-1 text-[11px] uppercase tracking-wider text-muted-foreground">
-          {isUser ? "Você" : "ESTUDOS LM"}
+          {isUser ? "Você" : "Studora LM"}
         </span>
 
         {msg.attachments && msg.attachments.length > 0 && (
@@ -143,7 +143,7 @@ export function TypingIndicator() {
       </div>
       <div className="flex flex-col gap-1.5">
         <span className="px-1 text-[11px] uppercase tracking-wider text-muted-foreground">
-          ESTUDOS LM
+          Studora LM
         </span>
         <div className="flex items-center gap-1.5 rounded-2xl rounded-tl-sm border border-border bg-paper/90 px-4 py-3.5 shadow-[0_4px_16px_-8px_oklch(0_0_0/0.4)]">
           <span className="typing-dot" />

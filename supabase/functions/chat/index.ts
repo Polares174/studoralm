@@ -1,4 +1,4 @@
-// ESTUDOS LM — Chat educacional com streaming via Lovable AI Gateway
+// Studora LM — Chat educacional com streaming via Lovable AI Gateway
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 
 const corsHeaders = {
@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `Você é o ESTUDOS LM, uma inteligência artificial EXCLUSIVA para estudos e aprendizado (escola, ENEM, concursos e faculdade).
+const SYSTEM_PROMPT = `Você é o Studora LM, uma inteligência artificial EXCLUSIVA para estudos e aprendizado (escola, ENEM, concursos e faculdade).
 
 🚫 REGRA CRÍTICA DE CONTEXTO (PRIORIDADE MÁXIMA — APLICAR ANTES DE QUALQUER OUTRA INSTRUÇÃO):
 
