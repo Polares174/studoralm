@@ -139,7 +139,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
         >
           <Menu className="h-4 w-4" />
         </button>
-        <Logo />
+        <Logo size="sm" showTagline={false} />
         <button
           onClick={() => setMobileRight(true)}
           className="rounded-lg p-2 text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
