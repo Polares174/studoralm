@@ -57,6 +57,13 @@ export function LeftSidebar({
             </button>
           );
         })}
+        <Link
+          to="/creditos"
+          className="group mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition hover:bg-secondary/60 hover:text-foreground"
+        >
+          <Info className="h-4 w-4 transition group-hover:text-primary" />
+          Créditos
+        </Link>
       </nav>
 
       <div className="flex flex-col gap-3">
