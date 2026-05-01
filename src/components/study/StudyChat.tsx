@@ -102,6 +102,7 @@ export function StudyChat({
     setMessages(next);
     setInput("");
     setLoading(true);
+    addXp(10);
 
     const controller = new AbortController();
     abortRef.current = controller;
