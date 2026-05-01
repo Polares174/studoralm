@@ -6,7 +6,6 @@ import {
   Network,
   PenLine,
   History,
-  Crown,
   ChevronUp,
   Info,
 } from "lucide-react";
@@ -68,19 +67,6 @@ export function LeftSidebar({
       </nav>
 
       <div className="flex flex-col gap-3">
-        <div className="rounded-xl border border-border bg-paper/60 p-3">
-          <div className="flex items-center gap-2">
-            <Crown className="h-4 w-4 text-[oklch(0.78_0.16_85)]" />
-            <span className="text-sm font-semibold text-foreground">Plano Estudante</span>
-          </div>
-          <p className="mt-1 text-[11px] text-muted-foreground">
-            Acesso ilimitado a todos os recursos
-          </p>
-          <button className="mt-2.5 w-full rounded-md bg-primary/15 px-3 py-1.5 text-xs font-medium text-primary transition hover:bg-primary/25">
-            Gerenciar plano
-          </button>
-        </div>
-
         <button
           onClick={onLogout}
           title={onLogout ? "Sair" : undefined}
