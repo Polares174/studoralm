@@ -1,4 +1,5 @@
 import { Logo } from "./Logo";
+import { GamificationPanel } from "./GamificationPanel";
 import {
   MessageSquare,
   FileText,
@@ -94,6 +95,8 @@ export function LeftSidebar({
           </div>
           <ChevronUp className="h-3.5 w-3.5 text-muted-foreground" />
         </button>
+
+        <GamificationPanel />
       </div>
     </div>
   );
