@@ -6,7 +6,6 @@ import {
   Network,
   PenLine,
   History,
-  Crown,
   ChevronUp,
   Info,
 } from "lucide-react";
