@@ -2,8 +2,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
-import { GraduationCap, User, Sparkles, BookOpen, FileText, Copy, Check } from "lucide-react";
+import { GraduationCap, User, Sparkles, BookOpen, FileText, Copy, Check, Volume2, Pause } from "lucide-react";
 import { useState } from "react";
+import { useSpeech } from "@/hooks/useSpeech";
 
 export type Msg = {
   role: "user" | "assistant";
@@ -22,6 +23,7 @@ export function MessageBubble({
 }) {
   const isUser = msg.role === "user";
   const [copied, setCopied] = useState(false);
+  const { speaking, toggle: toggleSpeech, supported: speechSupported } = useSpeech(msg.content || "");
 
   function copy() {
     navigator.clipboard.writeText(msg.content || "");
@@ -107,6 +109,25 @@ export function MessageBubble({
               {copied ? <Check className="h-3 w-3 text-primary" /> : <Copy className="h-3 w-3" />}
               {copied ? "Copiado" : "Copiar"}
             </button>
+            {speechSupported && (
+              <button
+                onClick={toggleSpeech}
+                className={`hover-lift inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[10px] transition ${
+                  speaking
+                    ? "border-primary/60 bg-primary/15 text-foreground shadow-[0_0_12px_-2px_oklch(0.58_0.24_295/0.7)]"
+                    : "border-border bg-paper/60 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                }`}
+                aria-label={speaking ? "Parar áudio" : "Ouvir resposta"}
+                title={speaking ? "Parar áudio" : "Ouvir resposta"}
+              >
+                {speaking ? (
+                  <Pause className="h-3 w-3 text-primary" />
+                ) : (
+                  <Volume2 className="h-3 w-3" />
+                )}
+                {speaking ? "Ouvindo…" : "Ouvir"}
+              </button>
+            )}
           </div>
         )}
       </div>
