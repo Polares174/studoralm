@@ -4,6 +4,7 @@ import { ChatComposer } from "./ChatComposer";
 import type { StudyDoc } from "./DocumentPanel";
 import { BookOpen, FileText, Lightbulb, Globe, Plus, History, Sparkles } from "lucide-react";
 import { toast } from "sonner";
+import { useGamification } from "@/hooks/useGamification";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const ANON = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -48,6 +49,7 @@ export function StudyChat({
   pendingPrompt?: { text: string; nonce: number } | null;
   onPendingHandled?: () => void;
 }) {
+  const { addXp } = useGamification();
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
     try {
