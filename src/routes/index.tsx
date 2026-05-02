@@ -147,13 +147,16 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
           <Menu className="h-4 w-4" />
         </button>
         <Logo size="sm" showTagline={false} />
-        <button
-          onClick={() => setMobileRight(true)}
-          className="rounded-lg p-2 text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
-          aria-label="Ferramentas"
-        >
-          <PanelRight className="h-4 w-4" />
-        </button>
+        <div className="flex items-center gap-1.5">
+          <NeuroCoinsBadge />
+          <button
+            onClick={() => setMobileRight(true)}
+            className="rounded-lg p-2 text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+            aria-label="Ferramentas"
+          >
+            <PanelRight className="h-4 w-4" />
+          </button>
+        </div>
       </header>
 
       {/* Topbar desktop com user pill */}
@@ -162,6 +165,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
           <Logo size="md" />
         </div>
         <div className="flex items-center gap-2">
+          <NeuroCoinsBadge />
           <div className="flex items-center gap-2 rounded-full border border-border bg-paper/60 py-1 pl-1 pr-3 transition hover:border-primary/40">
             <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-semibold text-primary-foreground">
               {initial}
