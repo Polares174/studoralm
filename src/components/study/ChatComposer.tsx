@@ -104,14 +104,6 @@ export function ChatComposer({
 
           <div className="mt-2 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <button
-                onClick={onAttach}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-background/60 px-2.5 py-1.5 text-xs text-muted-foreground transition hover:border-primary/40 hover:text-foreground"
-              >
-                <Paperclip className="h-3.5 w-3.5" />
-                Anexar fonte
-              </button>
-
               <div className="relative">
                 <button
                   onClick={() => setOpenMode((s) => !s)}
