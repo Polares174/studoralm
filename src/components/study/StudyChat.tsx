@@ -5,6 +5,7 @@ import type { StudyDoc } from "./DocumentPanel";
 import { BookOpen, FileText, Lightbulb, Globe, Plus, History, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { useGamification } from "@/hooks/useGamification";
+import { useNeuroCoins } from "@/hooks/useNeuroCoins";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const ANON = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -50,6 +51,7 @@ export function StudyChat({
   onPendingHandled?: () => void;
 }) {
   const { addXp } = useGamification();
+  const { rewardUser } = useNeuroCoins();
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
     try {
@@ -103,6 +105,7 @@ export function StudyChat({
     setInput("");
     setLoading(true);
     addXp(10);
+    rewardUser("question");
 
     const controller = new AbortController();
     abortRef.current = controller;
