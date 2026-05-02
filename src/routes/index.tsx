@@ -11,6 +11,8 @@ import { Menu, PanelRight, LogOut } from "lucide-react";
 import { Logo } from "@/components/study/Logo";
 import { LoginScreen } from "@/components/study/LoginScreen";
 import { useGamification } from "@/hooks/useGamification";
+import { useNeuroCoins } from "@/hooks/useNeuroCoins";
+import { NeuroCoinsBadge } from "@/components/study/NeuroCoinsBadge";
 
 const AUTH_KEY = "estudoslm:user-email";
 
@@ -35,6 +37,7 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   const { addXp } = useGamification();
+  const { rewardUser } = useNeuroCoins();
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [docs, setDocs] = useState<StudyDoc[]>([]);
@@ -113,6 +116,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
     const prompt = TOOL_PROMPTS[key];
     if (!prompt) return;
     addXp(5);
+    rewardUser("tool");
     setPendingPrompt({ text: prompt, nonce: Date.now() });
   }
 
