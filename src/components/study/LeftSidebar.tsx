@@ -6,7 +6,6 @@ import {
   Network,
   PenLine,
   History,
-  ChevronUp,
   Info,
 } from "lucide-react";
 import { useState } from "react";
@@ -22,16 +21,14 @@ const NAV = [
 
 export function LeftSidebar({
   onNewSource: _onNewSource,
-  userEmail,
-  onLogout,
+  userEmail: _userEmail,
+  onLogout: _onLogout,
 }: {
   onNewSource: () => void;
   userEmail?: string | null;
   onLogout?: () => void;
 }) {
   const [active, setActive] = useState<string>("chat");
-  const initial = (userEmail?.[0] ?? "E").toUpperCase();
-  const displayEmail = userEmail ?? "estudante@email.com";
 
   return (
     <div className="flex h-full flex-col gap-5 p-4">
@@ -67,21 +64,6 @@ export function LeftSidebar({
       </nav>
 
       <div className="flex flex-col gap-3">
-        <button
-          onClick={onLogout}
-          title={onLogout ? "Sair" : undefined}
-          className="flex items-center gap-2.5 rounded-xl border border-border bg-paper/60 p-2 text-left transition hover:bg-secondary/60"
-        >
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-semibold text-primary-foreground">
-            {initial}
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="truncate text-xs font-semibold text-foreground">Estudante</div>
-            <div className="truncate text-[10px] text-muted-foreground">{displayEmail}</div>
-          </div>
-          <ChevronUp className="h-3.5 w-3.5 text-muted-foreground" />
-        </button>
-
         <GamificationPanel />
       </div>
     </div>
