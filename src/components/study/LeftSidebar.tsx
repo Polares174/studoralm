@@ -6,7 +6,6 @@ import {
   Network,
   PenLine,
   History,
-  ChevronUp,
   Info,
 } from "lucide-react";
 import { useState } from "react";
@@ -22,16 +21,14 @@ const NAV = [
 
 export function LeftSidebar({
   onNewSource: _onNewSource,
-  userEmail,
-  onLogout,
+  userEmail: _userEmail,
+  onLogout: _onLogout,
 }: {
   onNewSource: () => void;
   userEmail?: string | null;
   onLogout?: () => void;
 }) {
   const [active, setActive] = useState<string>("chat");
-  const initial = (userEmail?.[0] ?? "E").toUpperCase();
-  const displayEmail = userEmail ?? "estudante@email.com";
 
   return (
     <div className="flex h-full flex-col gap-5 p-4">

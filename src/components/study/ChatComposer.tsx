@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { Send, Square, Paperclip, GraduationCap, ChevronDown, Check } from "lucide-react";
+import { Send, Square, GraduationCap, ChevronDown, Check } from "lucide-react";
 
 const MODES = [
   {
@@ -48,7 +48,7 @@ export function ChatComposer({
   onStop,
   loading,
   disabled,
-  onAttach,
+  onAttach: _onAttach,
 }: {
   value: string;
   onChange: (v: string) => void;
