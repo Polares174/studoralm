@@ -53,6 +53,7 @@ export function StudyChat({
 }) {
   const { addXp } = useGamification();
   const { rewardUser } = useNeuroCoins();
+  const { react: studReact } = useStudCompanion();
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
     try {
