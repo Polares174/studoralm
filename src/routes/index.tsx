@@ -13,6 +13,8 @@ import { LoginScreen } from "@/components/study/LoginScreen";
 import { useGamification } from "@/hooks/useGamification";
 import { useNeuroCoins } from "@/hooks/useNeuroCoins";
 import { NeuroCoinsBadge } from "@/components/study/NeuroCoinsBadge";
+import { StudCompanion } from "@/components/study/StudCompanion";
+import { useStudCompanion } from "@/hooks/useStudCompanion";
 
 const AUTH_KEY = "estudoslm:user-email";
 
