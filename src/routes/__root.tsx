@@ -1,6 +1,7 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { GamificationProvider } from "@/hooks/useGamification";
 import { NeuroCoinsProvider } from "@/hooks/useNeuroCoins";
+import { StudCompanionProvider } from "@/hooks/useStudCompanion";
 
 import appCss from "../styles.css?url";
 
