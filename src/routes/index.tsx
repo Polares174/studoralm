@@ -120,6 +120,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
     if (!prompt) return;
     addXp(5);
     rewardUser("tool");
+    studReact("tool");
     setPendingPrompt({ text: prompt, nonce: Date.now() });
   }
 
