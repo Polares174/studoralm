@@ -71,7 +71,9 @@ function RootComponent() {
   return (
     <GamificationProvider>
       <NeuroCoinsProvider>
-        <Outlet />
+        <StudCompanionProvider>
+          <Outlet />
+        </StudCompanionProvider>
       </NeuroCoinsProvider>
     </GamificationProvider>
   );
