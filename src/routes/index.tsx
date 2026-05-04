@@ -40,6 +40,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { addXp } = useGamification();
   const { rewardUser } = useNeuroCoins();
+  const { react: studReact } = useStudCompanion();
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [docs, setDocs] = useState<StudyDoc[]>([]);
