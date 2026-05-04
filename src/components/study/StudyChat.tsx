@@ -108,6 +108,7 @@ export function StudyChat({
     setLoading(true);
     addXp(10);
     rewardUser("question");
+    studReact("question");
 
     const controller = new AbortController();
     abortRef.current = controller;
