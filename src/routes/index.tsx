@@ -258,6 +258,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
       </Dialog>
 
       <Toaster position="top-center" theme="dark" richColors />
+      <StudCompanion />
     </div>
   );
 }
