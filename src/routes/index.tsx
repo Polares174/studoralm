@@ -13,6 +13,8 @@ import { LoginScreen } from "@/components/study/LoginScreen";
 import { useGamification } from "@/hooks/useGamification";
 import { useNeuroCoins } from "@/hooks/useNeuroCoins";
 import { NeuroCoinsBadge } from "@/components/study/NeuroCoinsBadge";
+import { StudCompanion } from "@/components/study/StudCompanion";
+import { useStudCompanion } from "@/hooks/useStudCompanion";
 
 const AUTH_KEY = "estudoslm:user-email";
 
@@ -38,6 +40,7 @@ export const Route = createFileRoute("/")({
 function Index() {
   const { addXp } = useGamification();
   const { rewardUser } = useNeuroCoins();
+  const { react: studReact } = useStudCompanion();
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [docs, setDocs] = useState<StudyDoc[]>([]);
@@ -117,6 +120,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
     if (!prompt) return;
     addXp(5);
     rewardUser("tool");
+    studReact("tool");
     setPendingPrompt({ text: prompt, nonce: Date.now() });
   }
 
@@ -254,6 +258,7 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
       </Dialog>
 
       <Toaster position="top-center" theme="dark" richColors />
+      <StudCompanion />
     </div>
   );
 }

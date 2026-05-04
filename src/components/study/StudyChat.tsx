@@ -6,6 +6,7 @@ import { BookOpen, FileText, Lightbulb, Globe, Plus, History, Sparkles } from "l
 import { toast } from "sonner";
 import { useGamification } from "@/hooks/useGamification";
 import { useNeuroCoins } from "@/hooks/useNeuroCoins";
+import { useStudCompanion } from "@/hooks/useStudCompanion";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
 const ANON = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
@@ -52,6 +53,7 @@ export function StudyChat({
 }) {
   const { addXp } = useGamification();
   const { rewardUser } = useNeuroCoins();
+  const { react: studReact } = useStudCompanion();
   const [messages, setMessages] = useState<Msg[]>(() => {
     if (typeof window === "undefined") return [];
     try {
@@ -106,6 +108,7 @@ export function StudyChat({
     setLoading(true);
     addXp(10);
     rewardUser("question");
+    studReact("question");
 
     const controller = new AbortController();
     abortRef.current = controller;
