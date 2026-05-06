@@ -2,6 +2,7 @@ import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/r
 import { GamificationProvider } from "@/hooks/useGamification";
 import { NeuroCoinsProvider } from "@/hooks/useNeuroCoins";
 import { StudCompanionProvider } from "@/hooks/useStudCompanion";
+import { UserProvider } from "@/hooks/useUser";
 
 import appCss from "../styles.css?url";
 
@@ -69,12 +70,14 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   return (
-    <GamificationProvider>
-      <NeuroCoinsProvider>
-        <StudCompanionProvider>
-          <Outlet />
-        </StudCompanionProvider>
-      </NeuroCoinsProvider>
-    </GamificationProvider>
+    <UserProvider>
+      <GamificationProvider>
+        <NeuroCoinsProvider>
+          <StudCompanionProvider>
+            <Outlet />
+          </StudCompanionProvider>
+        </NeuroCoinsProvider>
+      </GamificationProvider>
+    </UserProvider>
   );
 }
