@@ -15,6 +15,7 @@ import { useNeuroCoins } from "@/hooks/useNeuroCoins";
 import { NeuroCoinsBadge } from "@/components/study/NeuroCoinsBadge";
 import { StudCompanion } from "@/components/study/StudCompanion";
 import { useStudCompanion } from "@/hooks/useStudCompanion";
+import { useUser } from "@/hooks/useUser";
 
 const AUTH_KEY = "estudoslm:user-email";
 
@@ -41,6 +42,7 @@ function Index() {
   const { addXp } = useGamification();
   const { rewardUser } = useNeuroCoins();
   const { react: studReact } = useStudCompanion();
+  const { user, updateUser, addCoins, addXp: addUserXp, resetUser } = useUser();
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [docs, setDocs] = useState<StudyDoc[]>([]);
@@ -53,10 +55,12 @@ function Index() {
     try {
       const stored = localStorage.getItem(AUTH_KEY);
       if (stored) setUserEmail(stored);
+      else if (user.email) setUserEmail(user.email);
     } catch {
       // ignore
     }
     setAuthReady(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleLogin(email: string) {
@@ -65,6 +69,7 @@ function Index() {
     } catch {
       // ignore
     }
+    updateUser({ email, onboardingCompleted: true });
     setUserEmail(email);
   }
 
@@ -74,6 +79,7 @@ function Index() {
     } catch {
       // ignore
     }
+    resetUser();
     setUserEmail(null);
   }
 
@@ -119,7 +125,9 @@ RESULTADO: o texto deve parecer um roteiro de áudio, pronto para ser narrado po
     const prompt = TOOL_PROMPTS[key];
     if (!prompt) return;
     addXp(5);
+    addUserXp(5);
     rewardUser("tool");
+    addCoins(3);
     studReact("tool");
     setPendingPrompt({ text: prompt, nonce: Date.now() });
   }
