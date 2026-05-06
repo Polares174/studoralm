@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as CreditosRouteImport } from './routes/creditos'
+import { Route as AtualizacoesRouteImport } from './routes/atualizacoes'
 import { Route as IndexRouteImport } from './routes/index'
 
 const CreditosRoute = CreditosRouteImport.update({
   id: '/creditos',
   path: '/creditos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AtualizacoesRoute = AtualizacoesRouteImport.update({
+  id: '/atualizacoes',
+  path: '/atualizacoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -25,27 +31,31 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/atualizacoes': typeof AtualizacoesRoute
   '/creditos': typeof CreditosRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/atualizacoes': typeof AtualizacoesRoute
   '/creditos': typeof CreditosRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/atualizacoes': typeof AtualizacoesRoute
   '/creditos': typeof CreditosRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/creditos'
+  fullPaths: '/' | '/atualizacoes' | '/creditos'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/creditos'
-  id: '__root__' | '/' | '/creditos'
+  to: '/' | '/atualizacoes' | '/creditos'
+  id: '__root__' | '/' | '/atualizacoes' | '/creditos'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AtualizacoesRoute: typeof AtualizacoesRoute
   CreditosRoute: typeof CreditosRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/creditos'
       fullPath: '/creditos'
       preLoaderRoute: typeof CreditosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/atualizacoes': {
+      id: '/atualizacoes'
+      path: '/atualizacoes'
+      fullPath: '/atualizacoes'
+      preLoaderRoute: typeof AtualizacoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AtualizacoesRoute: AtualizacoesRoute,
   CreditosRoute: CreditosRoute,
 }
 export const routeTree = rootRouteImport
