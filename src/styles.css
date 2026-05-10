@@ -340,10 +340,16 @@
 ::-webkit-scrollbar-thumb:hover { background: var(--color-rule); }
 
 @keyframes nc-modal-in {
-  0% { opacity: 0; transform: translateY(-8px) scale(0.96); }
+  0% { opacity: 0; transform: translateY(12px) scale(0.96); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
-.animate-nc-modal-in { animation: nc-modal-in 0.32s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.animate-nc-modal-in { animation: nc-modal-in 0.36s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+
+@keyframes nc-backdrop-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-nc-backdrop-in { animation: nc-backdrop-in 0.24s ease-out both; }
 
 .nc-scroll::-webkit-scrollbar { width: 4px; }
 .nc-scroll::-webkit-scrollbar-track { background: transparent; }
