@@ -85,19 +85,27 @@ export function NeuroCoinsBadge() {
       </div>
 
       {mounted && open && createPortal(
-        <div className="fixed inset-0 z-[9999] flex items-start justify-center sm:justify-end p-4 sm:p-6">
+        <div
+          className="fixed inset-0 flex items-start justify-center sm:justify-end p-4 sm:p-6"
+          style={{ zIndex: 2147483000, isolation: "isolate" }}
+          role="dialog"
+          aria-modal="true"
+        >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-black/70 backdrop-blur-md animate-fade-in"
+            className="absolute inset-0 bg-black/75 backdrop-blur-md animate-nc-backdrop-in"
             onClick={() => setOpen(false)}
           />
 
           {/* Modal */}
           <div
-            className="relative mt-16 sm:mt-2 w-full sm:w-[380px] max-w-[92vw] max-h-[85vh] overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#13131C] via-[#0B0B11] to-[#0B0B11] shadow-[0_30px_80px_-20px_rgba(124,58,237,0.5),0_0_60px_-20px_rgba(255,215,0,0.25)] animate-nc-modal-in"
+            className="relative mt-16 sm:mt-2 w-full sm:w-[380px] max-w-[92vw] max-h-[85vh] overflow-hidden rounded-3xl border border-white/10 animate-nc-modal-in"
             style={{
+              backgroundColor: "#0B0B11",
               backgroundImage:
-                "radial-gradient(circle at 20% 0%, rgba(124,58,237,0.18), transparent 50%), radial-gradient(circle at 100% 100%, rgba(255,215,0,0.10), transparent 50%)",
+                "radial-gradient(circle at 20% 0%, rgba(124,58,237,0.22), transparent 55%), radial-gradient(circle at 100% 100%, rgba(255,215,0,0.12), transparent 55%), linear-gradient(135deg, #13131C 0%, #0B0B11 60%, #0B0B11 100%)",
+              boxShadow:
+                "0 30px 80px -20px rgba(124,58,237,0.55), 0 0 60px -20px rgba(255,215,0,0.28), 0 0 0 1px rgba(255,255,255,0.04) inset",
             }}
             onClick={(e) => e.stopPropagation()}
           >
